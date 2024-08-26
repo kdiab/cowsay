@@ -88,10 +88,18 @@ func main() {
 		}
 		output = append(output, string(input))
 	}
+	var cow = `         \  ^__^
+          \ (oo)\_______
+	    (__)\       )\/\
+	        ||----w |
+	        ||     ||
+		
+`
 
 	lines := tabsToSpaces(output)
 	maxWidth := calculateMaxWidth(lines)
 	normalizedString := normalizeString(lines, maxWidth)
 	cloud := buildCloud(normalizedString, maxWidth)
 	fmt.Println(cloud)
+	fmt.Println(cow)
 }
