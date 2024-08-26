@@ -40,12 +40,8 @@ func buildCloud(lines []string, width int) string {
 func tabsToSpaces(lines []string) []string {
 	var ret []string
 	for _, c := range lines {
-		if c == "\t" {
-			c = strings.Replace(c, "\t", "    ", -1)
-			ret = append(ret, c)
-		} else {
-			ret = append(ret, c)
-		}
+		c = strings.Replace(c, "\t", "    ", -1)
+		ret = append(ret, c)
 	}
 	return ret
 }
