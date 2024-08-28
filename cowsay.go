@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"io"
 	"os"
@@ -66,9 +67,38 @@ func normalizeString(lines []string, width int) []string {
 	return ret
 }
 
+func printFigure(name string) {
+	var cow = `         \  ^__^
+          \ (oo)\_______
+	    (__)\       )\/\
+	        ||----w |
+	        ||     ||
+		
+`
+	var rabbit = `		\
+		 \
+		  (\(\ 
+		  ( -.-)
+		  o_(")(")
+`
+
+	switch name {
+	case "cow":
+		fmt.Println(cow)
+	case "rabbit":
+		fmt.Println(rabbit)
+	default:
+		fmt.Println("We don't got it like that")
+	}
+}
+
 func main() {
 	info, _ := os.Stdin.Stat()
 	var output []string
+
+	var figure string
+	flag.StringVar(&figure, "f", "cow", "valid values: `cow` and `rabbit`")
+	flag.Parse()
 
 	if info.Mode()&os.ModeCharDevice != 0 {
 		fmt.Println("The command is intended to work with pipes.")
@@ -84,18 +114,11 @@ func main() {
 		}
 		output = append(output, string(input))
 	}
-	var cow = `         \  ^__^
-          \ (oo)\_______
-	    (__)\       )\/\
-	        ||----w |
-	        ||     ||
-		
-`
 
 	lines := tabsToSpaces(output)
 	maxWidth := calculateMaxWidth(lines)
 	normalizedString := normalizeString(lines, maxWidth)
 	cloud := buildCloud(normalizedString, maxWidth)
 	fmt.Println(cloud)
-	fmt.Println(cow)
+	printFigure(figure)
 }
